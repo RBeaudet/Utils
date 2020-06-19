@@ -6,5 +6,5 @@ Storeroom with useful scripts and pieces of code.
 
 ```bash
 unit_testing/
-|__ examples.py
+autosuggestion/
 ```

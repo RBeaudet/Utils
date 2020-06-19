@@ -6,13 +6,14 @@ import Levenshtein as levenshtein
 # i.e. a prefix. So all the edge n-grams of “search” are [“s”, “se”, “sea”, “sear”, “searc”, “search”]
 
 class EdgeNGramSuggester(object):
-    """A simple suggester that keeps a dictionary from prefixes to suggestions."""
-
+    """A simple suggester that keeps a dictionary from prefixes to suggestions.
+    """
     def __init__(self):
         self.data = {}
 
     def index(self, suggestions: Sequence[str]) -> None:
-        """Add the set of suggestions to the index."""
+        """Add the set of suggestions to the index.
+        """
         for s in suggestions:
             for i in range(len(s)):
                 ngram = s[0:i + 1]
@@ -22,8 +23,8 @@ class EdgeNGramSuggester(object):
                     self.data[ngram].append(s)
 
     def search(self, prefix: str) -> Generator[str, None, None]:
-        """Find suggestions that match the given prefix"""
-
+        """Find suggestions that match the given prefix
+        """
         if prefix in self.data:
             for s in self.data[prefix]:
                 yield s
@@ -50,15 +51,15 @@ def ngrams(text: str, size: int, sentinel: str = "_") -> Generator[str, None, No
 
 
 class NGramSuggester(object):
-    """A typo-tolerant suggester powered by an n-gram index."""
-
+    """A typo-tolerant suggester powered by an n-gram index.
+    """
     def __init__(self, ngram_size: int = 2) -> None:
         self.data: Dict[str, List[str]] = {}
         self.ngram_size = ngram_size
 
     def index(self, suggestions: Sequence[str]) -> None:
-        """Add the set of suggestions to the index."""
-
+        """Add the set of suggestions to the index.
+        """
         for s in suggestions:
             for ngram in ngrams(s, self.ngram_size):
                 if ngram not in self.data:
